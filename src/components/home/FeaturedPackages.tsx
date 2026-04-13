@@ -1,94 +1,76 @@
+'use client';
+
 import Link from 'next/link';
 import { packages } from '@/data/packages';
-import { Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function FeaturedPackages() {
-  const featuredPackages = packages.filter((pkg) => pkg.isFeatured).slice(0, 4);
+  const featured = packages.filter((p) => p.isFeatured && p.isActive);
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1B4D3E] mb-4">
-            Popular Tour Packages
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Curated travel experiences across Himachal Pradesh
-          </p>
-        </div>
+    <section className="section-padding bg-[#FAFAF8]">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-[#1B4D3E]">
+          Popular Tour Packages
+        </h2>
+        <p className="text-gray-500 text-center mt-2">
+          Curated travel experiences across Himachal Pradesh
+        </p>
 
-        {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {featuredPackages.map((pkg) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-8">
+          {featured.map((pkg) => (
             <Link
               key={pkg.id}
               href={`/packages/${pkg.slug}`}
-              className="group rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+              className="group"
             >
-              <div className="relative h-48 overflow-hidden bg-gray-200">
-                <img
-                  src={pkg.heroImage}
-                  alt={pkg.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                {/* Duration Badge */}
-                <div className="absolute top-3 right-3 bg-[#F59E0B] text-white px-3 py-1 rounded-full text-sm font-medium">
-                  {pkg.days}D/{pkg.nights}N
+              <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition group border border-gray-100 h-full flex flex-col">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={pkg.heroImage}
+                    alt={pkg.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#F59E0B] text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                    {pkg.nights}N/{pkg.days}D
+                  </div>
                 </div>
-              </div>
-
-              <div className="p-4 bg-white">
-                {/* Title */}
-                <h3 className="font-bold text-gray-900 mb-2 line-clamp-2">
-                  {pkg.title}
-                </h3>
-
-                {/* Rating */}
-                <div className="flex items-center gap-1 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={14}
-                      className={
-                        i < Math.floor(pkg.rating)
-                          ? 'fill-[#F59E0B] text-[#F59E0B]'
-                          : 'text-gray-300'
-                      }
-                    />
-                  ))}
-                  <span className="text-xs text-gray-500 ml-1">
-                    ({pkg.totalBookings})
-                  </span>
-                </div>
-
-                {/* Cities */}
-                <p className="text-sm text-gray-600 mb-3 line-clamp-1">
-                  {pkg.citiesCovered.join(', ')}
-                </p>
-
-                {/* Price */}
-                <div className="flex items-baseline gap-1">
-                  <span className="text-lg font-bold text-[#1B4D3E]">
-                    Rs {pkg.startingPrice.toLocaleString()}
-                  </span>
-                  <span className="text-xs text-gray-500">
-                    /{pkg.priceUnit === 'per_person' ? 'person' : 'package'}
-                  </span>
+                <div className="p-4 flex flex-col flex-grow">
+                  <h3 className="font-semibold text-[#111827] line-clamp-2 min-h-[2.75rem] text-[0.95rem]">
+                    {pkg.title}
+                  </h3>
+                  <div className="flex items-center gap-1 mt-2">
+                    <span className="text-[#F59E0B] text-xs">★</span>
+                    <span className="text-[#F59E0B] text-xs font-semibold">
+                      {pkg.rating}
+                    </span>
+                    <span className="text-gray-400 text-xs">
+                      ({pkg.totalBookings})
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1.5 truncate">
+                    {pkg.citiesCovered.join(' · ')}
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-gray-100">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-lg font-bold text-[#F59E0B]">
+                        Rs {pkg.startingPrice.toLocaleString('en-IN')}
+                      </span>
+                      <span className="text-xs text-gray-400">/person</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </Link>
           ))}
         </div>
 
-        {/* View All Button */}
-        <div className="flex justify-center mt-12">
+        <div className="mt-8 text-center">
           <Link
             href="/packages"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1B4D3E] text-white rounded-lg hover:bg-[#0F3530] transition-colors duration-200 font-medium"
+            className="inline-flex items-center gap-2 text-[#1B4D3E] font-semibold hover:gap-3 transition-all hover:underline"
           >
-            View All Packages
-            <span className="text-lg">→</span>
+            View All Packages <ArrowRight size={18} />
           </Link>
         </div>
       </div>

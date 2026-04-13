@@ -1,58 +1,47 @@
+'use client';
+
 import Link from 'next/link';
 import { cars } from '@/data/cars';
-import { Users, Wind } from 'lucide-react';
 
 export default function CarTypesSection() {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1B4D3E] mb-4">
-            Our Fleet
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Choose from our diverse range of vehicles
-          </p>
-        </div>
+    <section className="section-padding bg-[#FAFAF8]">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-[#1B4D3E]">
+          Our Fleet
+        </h2>
+        <p className="text-gray-500 text-center mt-2">
+          Choose from our diverse range of vehicles
+        </p>
 
-        {/* Cars Grid - Horizontal Scroll on Mobile, Grid on Desktop */}
-        <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6 pb-4 md:pb-0 snap-x snap-mandatory">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
           {cars.map((car) => (
             <Link
               key={car.id}
               href="/cars"
-              className="flex-shrink-0 w-full sm:w-72 md:w-auto snap-center rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white hover:translate-y-[-4px]"
+              className="group"
             >
-              <div className="h-40 overflow-hidden bg-gray-200">
-                <img
-                  src={car.image}
-                  alt={car.name}
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-
-              <div className="p-4">
-                {/* Car Name */}
-                <h3 className="font-bold text-lg text-gray-900 mb-3">
+              <div className="bg-white rounded-xl border border-gray-100 p-3 text-center hover:shadow-md hover:border-[#1B4D3E]/20 transition group">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+                  <img
+                    src={car.image}
+                    alt={car.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="font-semibold text-sm text-[#111827] mt-3">
                   {car.name}
                 </h3>
-
-                {/* Badges */}
-                <div className="flex items-center gap-3 mb-3 text-sm">
-                  <div className="flex items-center gap-1 bg-blue-50 px-2 py-1 rounded text-blue-700">
-                    <Users size={14} />
-                    <span>{car.seats} Seats</span>
-                  </div>
-                  <div className="flex items-center gap-1 bg-green-50 px-2 py-1 rounded text-green-700">
-                    <Wind size={14} />
-                    <span>AC</span>
-                  </div>
+                <div className="flex items-center justify-center gap-2 mt-1.5">
+                  <span className="text-[10px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                    {car.seats} Seats
+                  </span>
+                  <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+                    AC
+                  </span>
                 </div>
-
-                {/* Price */}
-                <p className="text-[#1B4D3E] font-semibold">
-                  Starting Rs {car.pricePerKm}/km
+                <p className="text-sm font-bold text-[#F59E0B] mt-2">
+                  Rs {car.pricePerKm}/km
                 </p>
               </div>
             </Link>

@@ -29,18 +29,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     pkg.citiesCovered && pkg.citiesCovered.length > 0
       ? ` covering ${pkg.citiesCovered.join(', ')}`
       : ''
-  }. Starting from ₹${pkg.startingPrice}.`;
+  }. Starting from Rs ${pkg.startingPrice}.`;
 
   return {
-    title: `${pkg.title} | Himachal Cars Tour Packages`,
+    title: `${pkg.title} | Himachal Cars`,
     description,
-    keywords: [
-      pkg.category,
-      ...pkg.citiesCovered,
-      'tour package',
-      'himachal pradesh',
-      'travel',
-    ],
     openGraph: {
       title: pkg.title,
       description: pkg.subtitle,

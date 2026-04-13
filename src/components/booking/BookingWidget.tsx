@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/Button';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type TabType = 'outstation' | 'airport' | 'hourly';
@@ -19,14 +19,14 @@ export default function BookingWidget() {
   const [returnDate, setReturnDate] = useState('');
 
   // Airport state
-  const [airport, setAirport] = useState('Chandigarh');
+  const [airport, setAirport] = useState('Chandigarh Airport');
   const [airportMode, setAirportMode] = useState<'pickup' | 'drop'>('pickup');
   const [airportDate, setAirportDate] = useState('');
   const [airportTime, setAirportTime] = useState('');
 
   // Hourly state
   const [hourlyCity, setHourlyCity] = useState('');
-  const [hourlyDuration, setHourlyDuration] = useState('4hr');
+  const [hourlyDuration, setHourlyDuration] = useState('4 Hours');
   const [hourlyDate, setHourlyDate] = useState('');
 
   const handleOutstationSearch = (e: React.FormEvent) => {
@@ -77,251 +77,255 @@ export default function BookingWidget() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        {/* Tab Navigation */}
-        <div className="flex border-b border-gray-200">
-          {(['outstation', 'airport', 'hourly'] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={cn(
-                'flex-1 py-4 px-4 text-center font-medium transition-all duration-200 relative',
-                activeTab === tab
-                  ? 'text-[#1B4D3E]'
-                  : 'text-gray-600 hover:text-gray-800'
-              )}
-            >
-              {tab === 'outstation' && 'Outstation'}
-              {tab === 'airport' && 'Airport Transfer'}
-              {tab === 'hourly' && 'Hourly Rental'}
-              {activeTab === tab && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#F59E0B]" />
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Tab Content */}
-        <div className="p-6 md:p-8">
-          {/* Outstation Tab */}
-          {activeTab === 'outstation' && (
-            <form onSubmit={handleOutstationSearch} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    From
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Pickup city"
-                    value={outstationFrom}
-                    onChange={(e) => setOutstationFrom(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    To
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Dropoff city"
-                    value={outstationTo}
-                    onChange={(e) => setOutstationTo(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    value={outstationDate}
-                    onChange={(e) => setOutstationDate(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  />
-                </div>
-                <div className="flex items-end">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={isRoundTrip}
-                      onChange={(e) => setIsRoundTrip(e.target.checked)}
-                      className="w-4 h-4 rounded"
-                    />
-                    <span className="text-sm font-medium text-gray-700">
-                      Round Trip
-                    </span>
-                  </label>
-                </div>
-              </div>
-
-              {isRoundTrip && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Return Date
-                  </label>
-                  <input
-                    type="date"
-                    value={returnDate}
-                    onChange={(e) => setReturnDate(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  />
-                </div>
-              )}
-
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                className="w-full"
-              >
-                Search Cars
-              </Button>
-            </form>
-          )}
-
-          {/* Airport Tab */}
-          {activeTab === 'airport' && (
-            <form onSubmit={handleAirportSearch} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Airport
-                  </label>
-                  <select
-                    value={airport}
-                    onChange={(e) => setAirport(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  >
-                    <option>Chandigarh</option>
-                    <option>Kullu-Bhuntar</option>
-                    <option>Shimla</option>
-                  </select>
-                </div>
-                <div className="flex items-end gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer flex-1">
-                    <input
-                      type="radio"
-                      checked={airportMode === 'pickup'}
-                      onChange={() => setAirportMode('pickup')}
-                      className="w-4 h-4"
-                    />
-                    <span className="text-sm font-medium text-gray-700">
-                      Pickup
-                    </span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer flex-1">
-                    <input
-                      type="radio"
-                      checked={airportMode === 'drop'}
-                      onChange={() => setAirportMode('drop')}
-                      className="w-4 h-4"
-                    />
-                    <span className="text-sm font-medium text-gray-700">
-                      Drop
-                    </span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    value={airportDate}
-                    onChange={(e) => setAirportDate(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Time
-                  </label>
-                  <input
-                    type="time"
-                    value={airportTime}
-                    onChange={(e) => setAirportTime(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  />
-                </div>
-              </div>
-
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                className="w-full"
-              >
-                Search Cars
-              </Button>
-            </form>
-          )}
-
-          {/* Hourly Tab */}
-          {activeTab === 'hourly' && (
-            <form onSubmit={handleHourlySearch} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter city"
-                    value={hourlyCity}
-                    onChange={(e) => setHourlyCity(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Duration
-                  </label>
-                  <select
-                    value={hourlyDuration}
-                    onChange={(e) => setHourlyDuration(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                  >
-                    <option value="4hr">4 Hours</option>
-                    <option value="8hr">8 Hours</option>
-                    <option value="12hr">12 Hours</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Date
-                </label>
-                <input
-                  type="date"
-                  value={hourlyDate}
-                  onChange={(e) => setHourlyDate(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                className="w-full"
-              >
-                Search Cars
-              </Button>
-            </form>
-          )}
-        </div>
+    <div className="bg-white rounded-2xl shadow-xl p-5 md:p-6 w-full max-w-lg mx-auto lg:mx-0">
+      {/* Tab Bar */}
+      <div className="flex bg-gray-100 rounded-xl p-1 gap-1 mb-5">
+        {(['outstation', 'airport', 'hourly'] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={cn(
+              'flex-1 py-2.5 text-center text-sm font-medium rounded-lg transition cursor-pointer',
+              activeTab === tab
+                ? 'bg-white text-[#1B4D3E] shadow-sm font-semibold'
+                : 'text-gray-500 hover:text-gray-700'
+            )}
+          >
+            {tab === 'outstation' && 'Outstation'}
+            {tab === 'airport' && 'Airport'}
+            {tab === 'hourly' && 'Hourly Rental'}
+          </button>
+        ))}
       </div>
+
+      {/* Outstation Tab */}
+      {activeTab === 'outstation' && (
+        <form onSubmit={handleOutstationSearch} className="space-y-4">
+          {/* Row 1: From & To */}
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+                From
+              </label>
+              <input
+                type="text"
+                placeholder="Shimla"
+                value={outstationFrom}
+                onChange={(e) => setOutstationFrom(e.target.value)}
+                className="bg-gray-50 border-gray-200"
+              />
+            </div>
+            <div className="flex-1">
+              <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+                To
+              </label>
+              <input
+                type="text"
+                placeholder="Manali"
+                value={outstationTo}
+                onChange={(e) => setOutstationTo(e.target.value)}
+                className="bg-gray-50 border-gray-200"
+              />
+            </div>
+          </div>
+
+          {/* Row 2: Travel Date */}
+          <div>
+            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+              Travel Date
+            </label>
+            <input
+              type="date"
+              value={outstationDate}
+              onChange={(e) => setOutstationDate(e.target.value)}
+              className="bg-gray-50 border-gray-200"
+            />
+          </div>
+
+          {/* Row 3: Round Trip Toggle */}
+          <div className="flex items-center">
+            <label className="flex items-center gap-2 cursor-pointer px-3 py-2 rounded-full bg-gray-50 border border-gray-200 hover:bg-gray-100 transition">
+              <input
+                type="checkbox"
+                checked={isRoundTrip}
+                onChange={(e) => setIsRoundTrip(e.target.checked)}
+                className="w-4 h-4 rounded accent-[#F59E0B]"
+              />
+              <span className="text-sm font-medium text-gray-700">Round Trip</span>
+            </label>
+          </div>
+
+          {/* Return Date (conditional) */}
+          {isRoundTrip && (
+            <div>
+              <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+                Return Date
+              </label>
+              <input
+                type="date"
+                value={returnDate}
+                onChange={(e) => setReturnDate(e.target.value)}
+                className="bg-gray-50 border-gray-200"
+              />
+            </div>
+          )}
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold py-3 rounded-xl text-base transition active:scale-[0.98] mt-1 flex items-center justify-center gap-2"
+          >
+            Search Cars & Prices
+            <ArrowRight size={18} />
+          </button>
+        </form>
+      )}
+
+      {/* Airport Tab */}
+      {activeTab === 'airport' && (
+        <form onSubmit={handleAirportSearch} className="space-y-4">
+          {/* Airport Select */}
+          <div>
+            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+              Airport
+            </label>
+            <select
+              value={airport}
+              onChange={(e) => setAirport(e.target.value)}
+              className="bg-gray-50 border-gray-200"
+            >
+              <option>Chandigarh Airport</option>
+              <option>Kullu-Bhuntar Airport</option>
+              <option>Shimla Airport</option>
+            </select>
+          </div>
+
+          {/* Service Toggle Buttons */}
+          <div>
+            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+              Service
+            </label>
+            <div className="flex bg-gray-100 rounded-lg p-1 gap-1">
+              <button
+                type="button"
+                onClick={() => setAirportMode('pickup')}
+                className={cn(
+                  'flex-1 py-2 text-sm font-medium rounded transition',
+                  airportMode === 'pickup'
+                    ? 'bg-white text-[#1B4D3E] shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700'
+                )}
+              >
+                Pickup
+              </button>
+              <button
+                type="button"
+                onClick={() => setAirportMode('drop')}
+                className={cn(
+                  'flex-1 py-2 text-sm font-medium rounded transition',
+                  airportMode === 'drop'
+                    ? 'bg-white text-[#1B4D3E] shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700'
+                )}
+              >
+                Drop
+              </button>
+            </div>
+          </div>
+
+          {/* Date & Time */}
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+                Date
+              </label>
+              <input
+                type="date"
+                value={airportDate}
+                onChange={(e) => setAirportDate(e.target.value)}
+                className="bg-gray-50 border-gray-200"
+              />
+            </div>
+            <div className="flex-1">
+              <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+                Time
+              </label>
+              <input
+                type="time"
+                value={airportTime}
+                onChange={(e) => setAirportTime(e.target.value)}
+                className="bg-gray-50 border-gray-200"
+              />
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold py-3 rounded-xl text-base transition active:scale-[0.98] mt-1 flex items-center justify-center gap-2"
+          >
+            Search Cars & Prices
+            <ArrowRight size={18} />
+          </button>
+        </form>
+      )}
+
+      {/* Hourly Tab */}
+      {activeTab === 'hourly' && (
+        <form onSubmit={handleHourlySearch} className="space-y-4">
+          {/* City */}
+          <div>
+            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+              City
+            </label>
+            <input
+              type="text"
+              placeholder="Shimla"
+              value={hourlyCity}
+              onChange={(e) => setHourlyCity(e.target.value)}
+              className="bg-gray-50 border-gray-200"
+            />
+          </div>
+
+          {/* Duration */}
+          <div>
+            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+              Duration
+            </label>
+            <select
+              value={hourlyDuration}
+              onChange={(e) => setHourlyDuration(e.target.value)}
+              className="bg-gray-50 border-gray-200"
+            >
+              <option>4 Hours</option>
+              <option>8 Hours</option>
+              <option>12 Hours</option>
+            </select>
+          </div>
+
+          {/* Date */}
+          <div>
+            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
+              Date
+            </label>
+            <input
+              type="date"
+              value={hourlyDate}
+              onChange={(e) => setHourlyDate(e.target.value)}
+              className="bg-gray-50 border-gray-200"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold py-3 rounded-xl text-base transition active:scale-[0.98] mt-1 flex items-center justify-center gap-2"
+          >
+            Search Cars & Prices
+            <ArrowRight size={18} />
+          </button>
+        </form>
+      )}
     </div>
   );
 }

@@ -1,24 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Metadata } from 'next';
 import { packages } from '@/data';
 import { PackageCard } from '@/components/packages/PackageCard';
-
-const metadata: Metadata = {
-  title: 'Tour Packages in Himachal Pradesh | Himachal Cars',
-  description:
-    'Explore our curated tour packages including honeymoon, family, adventure, spiritual, and group tours in Himachal Pradesh.',
-};
-
-const categories = [
-  { id: 'all', label: 'All' },
-  { id: 'honeymoon', label: 'Honeymoon' },
-  { id: 'family', label: 'Family' },
-  { id: 'adventure', label: 'Adventure' },
-  { id: 'spiritual', label: 'Spiritual' },
-  { id: 'group', label: 'Group' },
-];
+import { packageCategories } from '@/data/categories';
 
 export default function PackagesPage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -33,65 +18,60 @@ export default function PackagesPage() {
   }, [activeCategory]);
 
   return (
-    <>
-      <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-b from-teal-700 to-teal-800 text-white py-12 sm:py-16">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3">
-              Tour Packages in Himachal Pradesh
-            </h1>
-            <p className="text-lg text-teal-100 max-w-2xl">
-              Discover unforgettable journeys through the mountains. From romantic honeymoons
-              to thrilling adventures, we have the perfect package for you.
-            </p>
-          </div>
-        </section>
+    <div className="min-h-screen bg-[#FAFAF8]">
+      {/* Hero Banner */}
+      <section className="bg-[#1B4D3E] text-white py-12 md:py-16 text-center">
+        <div className="max-w-[1200px] mx-auto px-4">
+          <h1 className="text-3xl md:text-4xl font-bold">Tour Packages</h1>
+          <p className="text-white/70 mt-2">Explore curated holiday packages across Himachal Pradesh</p>
+        </div>
+      </section>
 
-        {/* Filter Tabs */}
-        <div className="bg-white border-b border-gray-200 sticky top-0 z-30">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex overflow-x-auto scrollbar-hide gap-2 py-4">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setActiveCategory(category.id)}
-                  className={`whitespace-nowrap px-4 sm:px-6 py-2 rounded-full font-semibold transition-all ${
-                    activeCategory === category.id
-                      ? 'bg-teal-700 text-white shadow-md'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
+      {/* Filter Tabs */}
+      <div className="sticky top-16 z-30 bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-[1200px] mx-auto px-4 py-3">
+          <div className="flex gap-2 overflow-x-auto pb-2">
+            <button
+              onClick={() => setActiveCategory('all')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition whitespace-nowrap ${
+                activeCategory === 'all'
+                  ? 'bg-[#1B4D3E] text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              All
+            </button>
+            {packageCategories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition whitespace-nowrap ${
+                  activeCategory === cat.id
+                    ? 'bg-[#1B4D3E] text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
           </div>
         </div>
-
-        {/* Packages Grid */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {filteredPackages.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPackages.map((pkg) => (
-                <PackageCard key={pkg.id} package={pkg} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-20">
-              <p className="text-xl text-gray-600 mb-3">
-                No packages found for this category.
-              </p>
-              <button
-                onClick={() => setActiveCategory('all')}
-                className="text-teal-700 font-semibold hover:text-teal-800 transition-colors"
-              >
-                View all packages
-              </button>
-            </div>
-          )}
-        </section>
       </div>
-    </>
+
+      {/* Packages Grid */}
+      <section className="max-w-[1200px] mx-auto px-4 py-8">
+        {filteredPackages.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredPackages.map((pkg) => (
+              <PackageCard key={pkg.id} package={pkg} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20">
+            <p className="text-xl text-gray-600">No packages found in this category</p>
+          </div>
+        )}
+      </section>
+    </div>
   );
 }

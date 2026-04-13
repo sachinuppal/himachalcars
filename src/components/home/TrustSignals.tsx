@@ -25,22 +25,20 @@ const signals = [
 
 export default function TrustSignals() {
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#1B4D3E]/5">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-white border-y border-gray-100">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {signals.map((signal, index) => {
             const Icon = signal.icon;
             return (
               <div key={index} className="text-center">
-                <div className="flex justify-center mb-3">
-                  <div className="p-3 bg-[#F59E0B] rounded-full">
-                    <Icon size={24} className="text-white" />
-                  </div>
+                <div className="w-12 h-12 mx-auto rounded-full bg-[#F59E0B]/10 flex items-center justify-center mb-3">
+                  <Icon size={22} className="text-[#F59E0B]" />
                 </div>
-                <div className="text-3xl sm:text-4xl font-bold text-[#1B4D3E] mb-1">
+                <div className="text-2xl md:text-3xl font-bold text-[#1B4D3E] mt-3">
                   {signal.value}
                 </div>
-                <p className="text-sm sm:text-base text-gray-700">
+                <p className="text-sm text-gray-500 mt-1">
                   {signal.label}
                 </p>
               </div>

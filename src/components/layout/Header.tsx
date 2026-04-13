@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone, MessageCircle, Mountain } from "lucide-react";
 import { WHATSAPP_NUMBER, PHONE } from "@/lib/constants";
 
 const navLinks = [
@@ -28,28 +28,27 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full bg-white transition-shadow duration-300 ${
-        isScrolled ? "shadow-md" : "shadow-sm"
+      className={`sticky top-0 z-50 w-full h-16 bg-white flex items-center transition-shadow duration-300 ${
+        isScrolled ? "shadow-md" : ""
       }`}
     >
-      <div className="flex items-center justify-between px-4 md:px-6 py-4">
-        {/* Mobile: Logo */}
-        <div className="flex-1 md:flex-none">
-          <Link
-            href="/"
-            className="text-xl md:text-2xl font-bold text-[#1B4D3E]"
-          >
-            Himachal Cars
-          </Link>
-        </div>
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6 w-full flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-xl font-bold text-[#1B4D3E] flex-shrink-0"
+        >
+          <Mountain size={24} strokeWidth={2.5} />
+          <span>Himachal Cars</span>
+        </Link>
 
-        {/* Desktop: Nav Links */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-gray-700 hover:text-[#1B4D3E] transition-colors"
+              className="text-sm font-medium text-[#6B7280] hover:text-[#1B4D3E] transition-colors duration-200"
             >
               {link.label}
             </Link>
@@ -57,32 +56,32 @@ export default function Header() {
         </nav>
 
         {/* Desktop: Book Now Button */}
-        <div className="hidden md:block">
+        <div className="hidden md:block flex-shrink-0">
           <Link
             href="#booking"
-            className="bg-[#F59E0B] hover:bg-amber-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+            className="bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold px-5 py-2 rounded-full text-sm transition-colors duration-200"
           >
             Book Now
           </Link>
         </div>
 
-        {/* Mobile: Icons */}
-        <div className="flex items-center gap-4 md:hidden">
+        {/* Mobile: Contact Icons */}
+        <div className="flex items-center gap-3 md:hidden">
           <a
             href={`tel:+91${PHONE}`}
-            className="text-[#1B4D3E] hover:text-[#2D7A5F] transition-colors"
+            className="rounded-full bg-[#1B4D3E]/10 p-2 text-[#1B4D3E] hover:bg-[#1B4D3E]/20 transition-colors duration-200"
             aria-label="Call us"
           >
-            <Phone size={24} />
+            <Phone size={20} />
           </a>
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi, I'm interested in booking a cab`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#1B4D3E] hover:text-[#2D7A5F] transition-colors"
+            className="rounded-full bg-green-500/10 p-2 text-green-600 hover:bg-green-500/20 transition-colors duration-200"
             aria-label="WhatsApp us"
           >
-            <MessageCircle size={24} />
+            <MessageCircle size={20} />
           </a>
         </div>
       </div>

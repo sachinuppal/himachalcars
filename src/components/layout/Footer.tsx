@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Phone, Mail, MessageCircle, MapPin } from "lucide-react";
 import { PHONE, EMAIL, WHATSAPP_NUMBER, ADDRESS } from "@/lib/constants";
 
 export default function Footer() {
@@ -9,28 +10,30 @@ export default function Footer() {
   return (
     <footer className="bg-[#1B4D3E] text-white">
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Column 1: Logo & Description */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">Himachal Cars</h3>
-            <p className="text-gray-300 text-sm mb-4">
+            <h3 className="text-xl font-bold text-white mb-4">Himachal Cars</h3>
+            <p className="text-white/70 text-sm mb-4 line-clamp-2">
               Reliable cab booking and tour packages across Himachal Pradesh.
             </p>
-            <p className="text-gray-400 text-sm flex items-start gap-2">
-              <span className="mt-1">📍</span>
+            <div className="flex items-start gap-2 text-white/60 text-sm">
+              <MapPin size={18} className="flex-shrink-0 mt-0.5" />
               <span>{ADDRESS}</span>
-            </p>
+            </div>
           </div>
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-gray-300">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
+              Quick Links
+            </h4>
+            <ul className="space-y-3">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Home
                 </Link>
@@ -38,7 +41,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#packages"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Packages
                 </Link>
@@ -46,7 +49,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#fleet"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Our Fleet
                 </Link>
@@ -54,7 +57,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#routes"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Routes
                 </Link>
@@ -62,7 +65,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#about"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   About
                 </Link>
@@ -70,7 +73,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#contact"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Contact
                 </Link>
@@ -80,12 +83,14 @@ export default function Footer() {
 
           {/* Column 3: Services */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Services</h4>
-            <ul className="space-y-2 text-gray-300">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
+              Services
+            </h4>
+            <ul className="space-y-3">
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Outstation Cabs
                 </a>
@@ -93,7 +98,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Airport Transfer
                 </a>
@@ -101,7 +106,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Hourly Rental
                 </a>
@@ -109,7 +114,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors text-sm"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   Tour Packages
                 </a>
@@ -119,40 +124,38 @@ export default function Footer() {
 
           {/* Column 4: Contact Info */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Contact Us</h4>
-            <ul className="space-y-3 text-gray-300 text-sm">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
+              Contact Us
+            </h4>
+            <ul className="space-y-3">
               <li className="flex items-center gap-2">
-                <span>📞</span>
+                <Phone size={18} className="flex-shrink-0" />
                 <a
                   href={`tel:+91${PHONE}`}
-                  className="hover:text-white transition-colors"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   +91 {PHONE}
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <span>✉️</span>
+                <Mail size={18} className="flex-shrink-0" />
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="hover:text-white transition-colors"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   {EMAIL}
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <span>💬</span>
+                <MessageCircle size={18} className="flex-shrink-0" />
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="text-sm text-white/70 hover:text-white transition-colors duration-200"
                 >
                   WhatsApp
                 </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <span>📍</span>
-                <span>{ADDRESS}</span>
               </li>
             </ul>
           </div>
@@ -160,18 +163,25 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
-            <p>&copy; {currentYear} Himachal Cars. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <Link href="#" className="hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="hover:text-white transition-colors">
-                Terms of Service
-              </Link>
-            </div>
+      <div className="border-t border-white/10">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-white/40">
+            {currentYear} Himachal Cars. All rights reserved.
+          </p>
+          <div className="flex items-center gap-6 text-sm text-white/40">
+            <Link
+              href="#"
+              className="hover:text-white/70 transition-colors duration-200"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-white/20">|</span>
+            <Link
+              href="#"
+              className="hover:text-white/70 transition-colors duration-200"
+            >
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>

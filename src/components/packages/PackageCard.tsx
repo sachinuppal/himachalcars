@@ -1,88 +1,54 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { Package } from '@/data';
-import { Star, MapPin } from 'lucide-react';
+import { Package } from '@/data/types';
 
 interface PackageCardProps {
   package: Package;
 }
 
 export function PackageCard({ package: pkg }: PackageCardProps) {
-  const rating = Math.round(pkg.rating * 10) / 10;
-  const durationText = pkg.days === 1 ? '1 Day' : `${pkg.days} Days ${pkg.nights} Nights`;
-
   return (
     <Link href={`/packages/${pkg.slug}`}>
-      <div className="group cursor-pointer h-full flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-        {/* Image Container */}
-        <div className="relative h-40 sm:h-48 overflow-hidden bg-gray-100">
-          <Image
+      <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition group border border-gray-100 h-full flex flex-col">
+        <div className="relative aspect-[4/3] overflow-hidden">
+          <img
             src={pkg.heroImage}
             alt={pkg.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            loading="lazy"
+            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
           />
-
-          {/* Duration Badge - Top Left */}
-          <div className="absolute top-3 left-3 bg-black/60 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-            {durationText}
+          <div className="absolute top-3 left-3 bg-[#F59E0B] text-white text-xs font-bold px-2.5 py-1 rounded-full">
+            {pkg.nights}N/{pkg.days}D
           </div>
-
-          {/* Category Badge - Top Right */}
-          <div className="absolute top-3 right-3 bg-amber-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full capitalize">
+          <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-[#1B4D3E] text-xs font-medium px-2.5 py-1 rounded-full capitalize">
             {pkg.category.replace('-', ' ')}
           </div>
         </div>
-
-        {/* Content Container */}
-        <div className="flex-1 p-4 flex flex-col">
-          {/* Title */}
-          <h3 className="font-semibold text-sm sm:text-base text-gray-900 line-clamp-2 mb-2">
+        <div className="p-4 flex flex-col flex-grow">
+          <h3 className="font-semibold text-[#111827] line-clamp-2 min-h-[2.75rem] text-[0.95rem]">
             {pkg.title}
           </h3>
-
-          {/* Rating */}
-          <div className="flex items-center gap-2 mb-2">
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  size={14}
-                  className={
-                    i < Math.round(pkg.rating)
-                      ? 'fill-amber-400 text-amber-400'
-                      : 'text-gray-300'
-                  }
-                />
-              ))}
-            </div>
-            <span className="text-xs sm:text-sm text-gray-600">
-              {rating} ({pkg.totalBookings})
+          <div className="flex items-center gap-1 mt-2">
+            <span className="text-[#F59E0B] text-xs">★</span>
+            <span className="text-[#F59E0B] text-xs font-semibold">
+              {pkg.rating}
+            </span>
+            <span className="text-gray-400 text-xs">
+              ({pkg.totalBookings})
             </span>
           </div>
-
-          {/* Cities Covered */}
-          <div className="flex items-start gap-1 mb-3">
-            <MapPin size={14} className="text-gray-500 flex-shrink-0 mt-0.5" />
-            <p className="text-xs sm:text-sm text-gray-500 line-clamp-1">
-              {pkg.citiesCovered.join(', ')}
-            </p>
-          </div>
-
-          {/* Price */}
-          <p className="text-lg sm:text-xl font-bold text-amber-500 mb-3">
-            From ₹{pkg.startingPrice.toLocaleString()}
-            <span className="text-xs font-normal text-gray-500">
-              /{pkg.priceUnit === 'per_person' ? 'person' : 'package'}
-            </span>
+          <p className="text-xs text-gray-400 mt-1.5 truncate">
+            {pkg.citiesCovered.join(' · ')}
           </p>
-
-          {/* Button */}
-          <button className="mt-auto bg-teal-700 hover:bg-teal-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 text-sm">
+          <div className="mt-3 pt-3 border-t border-gray-100">
+            <div className="flex items-baseline gap-1">
+              <span className="text-lg font-bold text-[#F59E0B]">
+                Rs {pkg.startingPrice.toLocaleString('en-IN')}
+              </span>
+              <span className="text-xs text-gray-400">/person</span>
+            </div>
+          </div>
+          <button className="block w-full text-center bg-[#1B4D3E]/5 hover:bg-[#1B4D3E]/10 text-[#1B4D3E] text-sm font-medium py-2.5 rounded-lg mt-4 transition">
             Explore Package
           </button>
         </div>
