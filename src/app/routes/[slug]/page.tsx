@@ -5,9 +5,7 @@ import { cars } from '@/data/cars';
 import { MapPin, Clock, CheckCircle } from 'lucide-react';
 
 interface RoutePageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -16,8 +14,9 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: RoutePageProps): Metadata {
-  const route = routes.find((r) => r.slug === params.slug);
+export async function generateMetadata({ params }: RoutePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const route = routes.find((r) => r.slug === slug);
 
   if (!route) {
     return {
@@ -32,8 +31,9 @@ export function generateMetadata({ params }: RoutePageProps): Metadata {
   };
 }
 
-export default function RoutePage({ params }: RoutePageProps) {
-  const route = routes.find((r) => r.slug === params.slug);
+export default async function RoutePage({ params }: RoutePageProps) {
+  const { slug } = await params;
+  const route = routes.find((r) => r.slug === slug);
 
   if (!route) {
     return (
