@@ -1,0 +1,7 @@
+export const SITE_NAME = "Himachal Cars"
+export const SITE_URL = "https://himachalcars.com"
+export const PHONE = "8091783474"
+export const WHATSAPP_NUMBER = "918091783474"
+export const EMAIL = "vikramkashyap980@gmail.com"
+export const ADDRESS = "Near Auckland Tunnel, Lakkar Bazar, Shimla"
+export const TAGLINE = "Reliable Cab Booking & Tour Packages in Himachal Pradesh"
